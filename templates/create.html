@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create/Update User</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <style>
+        .form-control {
+            height: 1.5cm;
+        }
+        .a {
+           text-decoration: none; 
+        }
+    </style>
+</head>
+
+<body background="/static/style/create.jpg">
+    <main class="form-signin w-100 m-auto" style="max-width: 35%;padding-top: 2cm;">
+
+        {% if edit == "False"%}
+        <form action="{{url_for('create')}}" method="POST" enctype="multipart/form-data">
+            <h1 class="h3 mb-3 fw-normal" style="color: white;">Sign Up</h1>
+            <div class="form-floating" style="padding-bottom:0.1cm ;">
+                <input class="form-control" name="fname" placeholder="First Name" required>
+                <label for="floatingfname">First Name</label>
+            </div>
+            <div class="form-floating" style="padding-bottom:0.1cm;">
+                <input class="form-control" name="lname" placeholder="Last Name">
+                <label for="floatinglname">Last Name</label>
+            </div>
+            <div class="form-floating" style="padding-bottom:0.1cm ;">
+                <input class="form-control" name="user_id" placeholder="Email Address" required>
+                <label for="floatinguser_id">Email Address</label>
+            </div>
+            <div class="form-floating" style="padding-bottom:0.1cm ;">
+                <input class="form-control" name="password" type='password' placeholder="New Password" required>
+                <label for="floatingpassword">Password</label>
+            </div>
+            <div class="form-floating mb-1">
+                <div class="form-control pt-0 pb-5"><p style="margin-bottom: 0.2cm;">Profile Picture</p><input name="profile" type="file" required></div>
+            </div>
+            <!-- </div>  -->
+            <button class="btn btn-lg btn-primary" type="submit" style="width: 100%;">Create Account</button>
+        </form>
+        <p style="color: white;">Already a user,<a href="{{url_for('login')}}" style="color: white;">Login</a></p>
+        {% if error == "already exist"%}
+        <div class="alert alert-primary" role="alert">
+            User Already Exist,For login Page <a href="{{url_for('login')}}" class="alert-link">click here</a>
+        </div>
+        {%endif%}
+        {%else%}
+        <form action="{{url_for('update_profile')}}" method="POST" enctype="multipart/form-data">
+            <h1 class="h3 mb-3 fw-normal" style="color: white;">Please Enter the details you want to change</h1>
+            <!-- <div class="container" > -->
+            {% set name=data.name.split(' ')%}
+            <div class="form-floating" style="padding-bottom:0.1cm ;">
+                <input class="form-control" name="fname" placeholder="First Name" value="{{name[0]}}" required>
+                <label for="floatingfname">First Name</label>
+            </div>
+            <div class="form-floating" style="padding-bottom:0.1cm ;">
+                <input class="form-control" name="lname" placeholder="Last Name" value="{{name[1]}}">
+                <label for="floatinglname">Last Name</label>
+            </div>
+            <div class="form-floating" style="padding-bottom:0.1cm ;">
+                <input class="form-control" name="user_id" placeholder="Email Address" value="{{data.user_id}}"
+                    disabled>
+                <label for="floatinguser_id">Email Address</label>
+            </div>
+            <div class="form-floating" style="padding-bottom:0.1cm ;">
+                <input class="form-control" name="password" type='password' placeholder="New Password">
+                <label for="floatingpassword">New Password</label>
+            </div>
+            <div class="form-floating" style="padding-bottom:0.1cm ;">
+                <div class="form-control">Profile Picture<input name="profile" type="file"></div>
+            </div>
+
+            <!-- </div>  -->
+            <button class="btn btn-lg btn-primary" type="submit" style="width: 100%;">Update Profile</button>
+        </form>
+        <a href="{{url_for('profile')}}" style="color: white;">cancel</a>
+        {%endif%}
+
+    </main>
+</body>
+
+</html>

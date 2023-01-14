@@ -1,0 +1,39 @@
+{% extends "nav.html" %}
+{% block title %}<title>Users</title>{% endblock title %}
+{% block navigation%}
+{%if users|length == 0 %}
+<h4 style="color: white;margin-top: 3cm;text-align: center;">Sorry,seems like no one is here.</h4>
+{%else%}
+<div class="card px-3 pt-3 m-auto" style="width: 32rem; padding-top: 10%;margin-top: 2cm !important;">
+    {% for user in users %}
+
+    <ul style="list-style:none;margin: 0;padding: 0;">
+        <li style="width: 25%;float: left;padding: 2%;"><img src="/static/profiles/{{user['user_id']}}.jpg"
+                style="border-radius: 50%;" width="50" height="50"></li>
+        <li style="width: 55%;float:left;padding: 4%;">{% if user['user_id'] != current_user.user_id %}<a
+                href="{{url_for('other_profile',var='post',user_id=user['user_id'],other='True')}}">{{user['name']}}</a>{%else%}
+            <a href="{{url_for('profile')}}">{{user['name']}}</a>{%endif%}
+        </li>
+        {% if user['user_id'] != current_user.user_id %}
+        {% if user['user_id'] not in following %}
+        <li style="width: 20%;float: right;"><button type="button" class="btn btn-primary"><a
+                    href="{{url_for('follow',following=user['user_id'])}}" style="color: white;">
+                    Follow</a></button></li>
+        {%else%}
+        <li style="width: 20%;float: right;"><button type="button" class="btn btn-outline-primary"><a
+                    onMouseOver="this.style.color='white'" onMouseOut="this.style.color='#0275D8'"
+                    href="{{url_for('follow',following=user['user_id'],unfollow='True')}}">
+                    Unfollow</a></button></li>
+        {%endif%}
+    </ul>
+    {%endif%}
+    {%endfor%}
+</div>
+<div class="card px-3 pt-3 m-auto" style="max-width: 32rem">
+    <button type="submit" class="btn btn-primary"><a href="{{url_for('login')}}" style="color:white">Done</a></button>
+</div>
+{%endif%}
+</body>
+
+</html>
+{% endblock navigation%}

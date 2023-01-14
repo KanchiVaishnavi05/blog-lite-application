@@ -1,0 +1,44 @@
+{% extends "nav.html" %}
+{% block title %}<title>post</title>{% endblock title %}
+{% block navigation%}
+
+    {% if edit == 'False' %}
+        <form action="{{url_for('post')}}" method="POST" style="max-width: 50%;padding-top: 5%;" class="m-auto" enctype="multipart/form-data">
+            <!-- <img class="mb-4" src="/docs/5.2/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57"> -->
+            <h1 class="h3 mb-3 fw-normal" style="color: white;">Create Post</h1>
+
+            <div class="form-floating pt-1">
+                <div class="form-control pt-0 pb-5"><p style="margin-bottom: 0.2cm;">Select an Image</p><input name="post" type="file" required></div>
+            </div>
+            <div class="form-floating">
+                <input class="form-control" name="title" placeholder="Title" required>
+                <label for="floatingtitle">Title</label>
+            </div>
+            <div class="form-floating">
+                <caption><input class="form-control" name="caption" placeholder="write your caption here" ></caption>
+                <label for="floatingcaption">Caption</label>
+            </div>
+
+            <button class="w-100 btn btn-lg btn-primary" type="submit">Post</button>
+        </form>
+    {%else%}
+        <form action="{{url_for('update_post', post_id=data.post_id)}}" method="POST" style="max-width: 50%;padding-top: 5%;" class="m-auto" enctype="multipart/form-data">
+            <!-- <img class="mb-4" src="/docs/5.2/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57"> -->
+            <h1 class="h3 mb-3 fw-normal" style="align-self: center;">Edit Post</h1>
+            
+            <div class="form-floating mb-2">
+                <input type="text" class="form-control" name="title" placeholder="{{data.title}}" value="{{data.title}}">
+                <label for="title">Title</label>
+            </div>
+            <div class="form-floating">
+                <caption><input class="form-control" name="caption" value="{{data.caption}}"></caption>
+                <label for="floatingcaption">Caption</label>
+            </div>
+
+            <button class="w-100 btn btn-lg btn-primary" type="submit">Edit Post</button>
+        </form>
+    {%endif%}
+    {% endblock navigation%}
+
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {% block title %} {% endblock %}
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+  <style>
+    a {
+      text-decoration: none;
+    }
+  </style>
+</head>
+
+<body
+  style="background-image: linear-gradient( 135deg, #72EDF2 10%, #5151E5 100%);background-repeat:no-repeat;height: 100vh !important;background-size: cover;background-attachment: fixed;">
+  <nav class="navbar navbar-light bg-light fixed-top" style="text-align: center;z-index: 99;padding-bottom: 0;">
+    <!--user icon and name  -->
+
+    <a class="navbar-brand" href="{{url_for('profile')}}" title="profile" style="margin-left:0.5cm; ">
+      <img src="/static/profiles/{{current_user.user_id}}.jpg" style="border-radius: 50%;" width="40" height="40"
+        class="d-inline-block align-top" alt="">
+      {{current_user.name}}
+    </a>
+    <!-- search bar -->
+
+    <form action="{{url_for('search')}}" method="GET">
+
+      <div class="input-group position-absolute top-50 start-50 translate-middle" style="width: 40rem; ">
+        <input type="text" class="form-control" placeholder="Enter User Name" name="uname" required>
+        <span class="input-group-text" id="basic-addon1" style="border: none;"><button type="submit" style="border: 0;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search"
+              viewBox="0 0 16 16">
+              <path
+                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+            </svg></button>
+        </span>
+      </div>
+    </form>
+    <!-- create post -->
+    <div style="float: left;width: 30%;height: 100%;">
+      <ul style="list-style: none;padding: 0;">
+        <li style="display: inline;width: 25%;float: left;">
+          <a href="{{url_for('post')}}" style="margin-left: 2cm;" title="create post"><svg xmlns="http://www.w3.org/2000/svg" width="20"
+              height="30" fill="currentColor" class="bi bi-plus-square-dotted" style="margin-top:0.2cm"
+              viewBox="0 0 16 16">
+              <path
+                d="M2.5 0c-.166 0-.33.016-.487.048l.194.98A1.51 1.51 0 0 1 2.5 1h.458V0H2.5zm2.292 0h-.917v1h.917V0zm1.833 0h-.917v1h.917V0zm1.833 0h-.916v1h.916V0zm1.834 0h-.917v1h.917V0zm1.833 0h-.917v1h.917V0zM13.5 0h-.458v1h.458c.1 0 .199.01.293.029l.194-.981A2.51 2.51 0 0 0 13.5 0zm2.079 1.11a2.511 2.511 0 0 0-.69-.689l-.556.831c.164.11.305.251.415.415l.83-.556zM1.11.421a2.511 2.511 0 0 0-.689.69l.831.556c.11-.164.251-.305.415-.415L1.11.422zM16 2.5c0-.166-.016-.33-.048-.487l-.98.194c.018.094.028.192.028.293v.458h1V2.5zM.048 2.013A2.51 2.51 0 0 0 0 2.5v.458h1V2.5c0-.1.01-.199.029-.293l-.981-.194zM0 3.875v.917h1v-.917H0zm16 .917v-.917h-1v.917h1zM0 5.708v.917h1v-.917H0zm16 .917v-.917h-1v.917h1zM0 7.542v.916h1v-.916H0zm15 .916h1v-.916h-1v.916zM0 9.375v.917h1v-.917H0zm16 .917v-.917h-1v.917h1zm-16 .916v.917h1v-.917H0zm16 .917v-.917h-1v.917h1zm-16 .917v.458c0 .166.016.33.048.487l.98-.194A1.51 1.51 0 0 1 1 13.5v-.458H0zm16 .458v-.458h-1v.458c0 .1-.01.199-.029.293l.981.194c.032-.158.048-.32.048-.487zM.421 14.89c.183.272.417.506.69.689l.556-.831a1.51 1.51 0 0 1-.415-.415l-.83.556zm14.469.689c.272-.183.506-.417.689-.69l-.831-.556c-.11.164-.251.305-.415.415l.556.83zm-12.877.373c.158.032.32.048.487.048h.458v-1H2.5c-.1 0-.199-.01-.293-.029l-.194.981zM13.5 16c.166 0 .33-.016.487-.048l-.194-.98A1.51 1.51 0 0 1 13.5 15h-.458v1h.458zm-9.625 0h.917v-1h-.917v1zm1.833 0h.917v-1h-.917v1zm1.834-1v1h.916v-1h-.916zm1.833 1h.917v-1h-.917v1zm1.833 0h.917v-1h-.917v1zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
+            </svg></a>
+        </li>
+        <!-- home page button-->
+        <li style="display: inline;width: 25%;float: left;">
+          <a href="{{url_for('login')}}" style="margin-left: 2cm;" title="home page"><svg xmlns="http://www.w3.org/2000/svg" width="20"
+              height="30" style="margin-top: 0.185cm;" fill="currentColor" class="bi bi-house-door" viewBox="0 0 16 16">
+              <path
+                d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146ZM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4H2.5Z" />
+            </svg></a>
+        </li>
+        <!-- Logout button -->
+        <li style="display: inline;width: 50%;">
+          <button type="button" class="btn btn-primary" style="margin-left: 2cm;margin-top: 0.09cm;"><a
+              href="{{url_for('logout')}}" style="color: aliceblue;" title="Logout">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                class="bi bi-box-arrow-in-left" viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                  d="M10 3.5a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-2a.5.5 0 0 1 1 0v2A1.5 1.5 0 0 1 9.5 14h-8A1.5 1.5 0 0 1 0 12.5v-9A1.5 1.5 0 0 1 1.5 2h8A1.5 1.5 0 0 1 11 3.5v2a.5.5 0 0 1-1 0v-2z" />
+                <path fill-rule="evenodd"
+                  d="M4.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H14.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z" />
+              </svg>
+              Logout
+            </a></button>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  {% block navigation %} {% endblock %}
+</body>
+
+</html>
